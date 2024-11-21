@@ -16,7 +16,7 @@ rm(list=ls())
 # INPUT
 user = 'esf'
 if(user == 'esf') {
-  repo_loc = '/Volumes/corey_l/esford3_kmayerbl_collab/software/wen_2024/'
+  repo_loc = '/Volumes/corey_l/esford3_kmayerbl_collab/software/wen_2024'
 } else {
   stop("set repo loc and repo manually")
 }
@@ -124,9 +124,15 @@ all$v_a_gene <- paste0(all$v_a_gene, "*01")
 all$j_a_gene <- paste0(all$j_a_gene, "*01")
 all$v_a_gene <- gsub("DV", "/DV", all$v_a_gene)
 
+## consolidate by exact nt+aa sequences
 check <- all %>%
     group_by(tet, ptid, cdr3_a_nt, cdr3_b_nt, v_a_gene, v_b_gene,
              j_a_gene, j_b_gene, cdr3_a_aa, cdr3_b_aa) %>%
     summarise(count = sum(count))
 
-write.csv(check, filename_out, row.names = F)
+## consolidate to just unique amino acid sequence
+check_aa <- check %>%
+  group_by(tet, ptid, cdr3_a_aa, cdr3_b_aa, v_a_gene, v_b_gene,
+           j_a_gene, j_b_gene) %>%
+  summarise(count = sum(count))
+write.csv(check_aa, filename_out, row.names = F)
