@@ -24,7 +24,7 @@ if(user == 'esf') {
 filename_main = file.path(repo_loc, 'data/wen_nc_060624.csv')
 
 # OUTPUT
-filename_out = file.path(repo_loc, 'data/wen_for_tcrdist_060724.csv')
+filename_out = file.path(repo_loc, 'data/wen_for_tcrdist_consoltoaa_081924.csv')
 
 
 #### DATA DICTIONARY ####
